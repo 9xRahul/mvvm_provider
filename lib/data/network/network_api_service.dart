@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider_mvvm/data/app_exceptions.dart';
 import 'package:provider_mvvm/data/network/base_api_service.dart';
@@ -25,10 +26,13 @@ class NetworkApiServices extends BaseApiServices {
   Future<dynamic> postResponse(String url, dynamic data) async {
     dynamic jsonresponse;
     try {
+      debugPrint(data.toString());
       http.Response response = await http
           .post(Uri.parse(url), body: data)
-          .timeout(Duration(seconds: 3));
-          
+          .timeout(Duration(seconds: 10));
+
+      print(response.statusCode);
+      print(url);
       jsonresponse = returnResponse(response);
 
       return jsonresponse;
